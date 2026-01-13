@@ -35,6 +35,7 @@ dependencies = [
     "django-filter~=25.2",
     "django-autocomplete-light~=3.12.1",
     "django-debug-toolbar~=6.1.0",
+    "requests~=2.32.0",
 ]
 
 [project.optional-dependencies]

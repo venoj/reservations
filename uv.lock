@@ -889,6 +889,7 @@ dependencies = [
     { name = "django-filter" },
     { name = "django-guardian" },
     { name = "djangorestframework" },
+    { name = "requests" },
 ]
 
 [package.optional-dependencies]
@@ -924,6 +925,7 @@ requires-dist = [
     { name = "ipython", marker = "extra == 'devel'" },
     { name = "psycopg", extras = ["binary"], marker = "extra == 'postgres'", specifier = "~=3.2.12" },
     { name = "pytest-cov", marker = "extra == 'test'" },
+    { name = "requests", specifier = "~=2.32.0" },
     { name = "ruff", marker = "extra == 'test'" },
     { name = "sphinx", marker = "extra == 'docs'" },
     { name = "sphinx-pyproject", marker = "extra == 'docs'" },

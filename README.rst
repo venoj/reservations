@@ -41,6 +41,6 @@ Installation
 Usage
 =====
 
-The administration interface can be accessed at ``localhhost:8000/admin/``.
+The administration interface can be accessed at ``localhost:8000/admin/``.
 
 The API endpoints are available at ``localhost:8000/api/``.
