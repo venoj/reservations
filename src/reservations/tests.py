@@ -24,7 +24,7 @@ class WTT3ImportTestCase(TestCase):
             "owners": [],
         }
 
-    @patch("reservations.models.requests.get")
+    @patch("reservations.wtt3.importer.requests.get")
     def test_import_from_wtt3_success(self, mock_get):
         """Test successful import from WTT3 API."""
         # Mock API response
@@ -46,7 +46,7 @@ class WTT3ImportTestCase(TestCase):
             Reservation.objects.filter(external_id="12345").exists()
         )
 
-    @patch("reservations.models.requests.get")
+    @patch("reservations.wtt3.importer.requests.get")
     def test_import_from_wtt3_paginated_response(self, mock_get):
         """Test import with paginated API response."""
         # Mock paginated API response
@@ -65,7 +65,7 @@ class WTT3ImportTestCase(TestCase):
 
         self.assertEqual(created, 1)
 
-    @patch("reservations.models.requests.get")
+    @patch("reservations.wtt3.importer.requests.get")
     def test_import_from_wtt3_with_date_filter(self, mock_get):
         """Test import with date range filtering."""
         mock_response = Mock()
@@ -89,7 +89,7 @@ class WTT3ImportTestCase(TestCase):
         self.assertIn("start", call_args.kwargs.get("params", {}))
         self.assertIn("end", call_args.kwargs.get("params", {}))
 
-    @patch("reservations.models.requests.get")
+    @patch("reservations.wtt3.importer.requests.get")
     def test_import_from_wtt3_with_api_key(self, mock_get):
         """Test import with API key authentication."""
         mock_response = Mock()
@@ -108,7 +108,7 @@ class WTT3ImportTestCase(TestCase):
         self.assertIn("Authorization", headers)
         self.assertEqual(headers["Authorization"], "Bearer test-api-key")
 
-    @patch("reservations.models.requests.get")
+    @patch("reservations.wtt3.importer.requests.get")
     def test_import_from_wtt3_updates_existing(self, mock_get):
         """Test that existing reservations are updated."""
         # Create existing reservation
@@ -138,7 +138,7 @@ class WTT3ImportTestCase(TestCase):
         existing.refresh_from_db()
         self.assertEqual(existing.reason, "Updated reason")
 
-    @patch("reservations.models.requests.get")
+    @patch("reservations.wtt3.importer.requests.get")
     def test_import_from_wtt3_api_error(self, mock_get):
         """Test handling of API errors."""
         import requests
@@ -149,7 +149,7 @@ class WTT3ImportTestCase(TestCase):
         with self.assertRaises(requests.RequestException):
             Reservation.objects.import_from_wtt3(api_url=self.api_url)
 
-    @patch("reservations.models.requests.get")
+    @patch("reservations.wtt3.importer.requests.get")
     def test_import_from_wtt3_with_reservables(self, mock_get):
         """Test import with reservables linking."""
         # Create a reservable

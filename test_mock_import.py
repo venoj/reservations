@@ -90,7 +90,7 @@ def test_with_mock_data():
     mock_response.json.return_value = MOCK_RESERVATIONS_DATA
     mock_response.raise_for_status = Mock()
 
-    with patch('reservations.models.requests.get', return_value=mock_response):
+    with patch('reservations.wtt3.importer.requests.get', return_value=mock_response):
         # Import reservations
         # Note: api_url is not actually used since requests.get is mocked
         created, updated = Reservation.objects.import_from_wtt3(
@@ -123,7 +123,7 @@ def test_with_paginated_response():
     # Clear previous test data
     Reservation.objects.filter(external_id__startswith="wtt3-").delete()
 
-    with patch('reservations.models.requests.get', return_value=mock_response):
+    with patch('reservations.wtt3.importer.requests.get', return_value=mock_response):
         created, updated = Reservation.objects.import_from_wtt3(
             api_url="https://mock-wtt3-api.example.com"
         )
@@ -152,7 +152,7 @@ def test_update_existing():
     mock_response.json.return_value = [updated_data]
     mock_response.raise_for_status = Mock()
 
-    with patch('reservations.models.requests.get', return_value=mock_response):
+    with patch('reservations.wtt3.importer.requests.get', return_value=mock_response):
         created, updated = Reservation.objects.import_from_wtt3(
             api_url="https://mock-wtt3-api.example.com"
         )
