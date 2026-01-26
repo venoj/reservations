@@ -161,8 +161,12 @@ class WTT3ImportTestCase(TestCase):
         # Mock API error
         mock_get.side_effect = requests.RequestException("API Error")
 
-        with self.assertRaises(requests.RequestException):
-            Reservation.objects.import_from_wtt3(api_url=self.api_url)
+        created, updated = Reservation.objects.import_from_wtt3(
+            api_url=self.api_url,
+            api_key=self.api_key
+        )
+        self.assertEqual(created, 0)
+        self.assertEqual(updated, 0)
 
     @patch("reservations.wtt3.importer.requests.get")
     def test_import_from_wtt3_with_reservables(self, mock_get):
