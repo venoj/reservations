@@ -84,8 +84,6 @@ def import_reservations_from_wtt3(
             for item in data:
                 # Only process reservations (ID starts with "R")
                 item_id = str(item.get("id", ""))
-                if not item_id.startswith("R"):
-                    continue  # Skip schedules (starting with "S")
 
                 if item_id not in all_reservations:
                     all_reservations[item_id] = item
@@ -97,8 +95,6 @@ def import_reservations_from_wtt3(
     for res_data in all_reservations.values():
         try:
             external_id = str(res_data.get("id", ""))
-            if not external_id.startswith("R"):
-                continue
 
             start_date_str = res_data.get("startDate", "")  # Format: "dd.mm.yyyy"
             end_date_str = res_data.get("endDate", "")  # Format: "dd.mm.yyyy"
