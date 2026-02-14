@@ -139,51 +139,18 @@ class ReservationManager(models.Manager):
             start__lt=end, end=start, reservables__in=reservables.all()
         )
 
-    def import_from_wtt3(
-        self,
-        api_url: Optional[str] = None,
-        api_key: Optional[str] = None,
-        start_date: Optional[datetime] = None,
-        end_date: Optional[datetime] = None,
-    ) -> tuple[int, int]:
-        """Import reservations from Wyse Timetables (WTT3) API.
-
-        Args:
-            api_url: Base URL for WTT3 API. Defaults to WTT3_API_URL from settings.
-            api_key: API key for authentication. Defaults to WTT3_API_KEY from settings.
-            start_date: Optional start date filter for reservations.
-            end_date: Optional end date filter for reservations.
-
-        Returns:
-            Tuple of (created_count, updated_count) reservations.
-
-        Raises:
-            requests.RequestException: If API request fails.
-        """
-        # Import here to avoid circular import:
-        # wtt3.importer imports Reservation/Reservable from models
-        from reservations.wtt3 import import_reservations_from_wtt3
-
-        return import_reservations_from_wtt3(
-            queryset=self.get_queryset(),
-            api_url=api_url,
-            api_key=api_key,
-            start_date=start_date,
-            end_date=end_date,
-        )
-
 
 class Reservation(models.Model):
     """A model represent a reservation."""
 
-    #: External ID from WTT3 (Wyse Timetables) API
+    #: External ID from an external reservation system (e.g. import source).
     external_id = models.CharField(
         max_length=255,
         unique=True,
         null=True,
         blank=True,
         verbose_name=_("External reservation ID"),
-        help_text=_("ID from Wyse Timetables (WTT3) API"),
+        help_text=_("ID from external reservation system"),
     )
 
     #: Why the reservation was made.

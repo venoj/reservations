@@ -25,7 +25,6 @@ src/reservations/locale/sl/LC_MESSAGES/django.mo
 src/reservations/locale/sl/LC_MESSAGES/django.po
 src/reservations/management/__init__.py
 src/reservations/management/commands/__init__.py
-src/reservations/management/commands/import_wtt3.py
 src/reservations/migrations/0001_initial.py
 src/reservations/migrations/0002_auto_20151001_1916.py
 src/reservations/migrations/0003_auto_20170302_1114.py
